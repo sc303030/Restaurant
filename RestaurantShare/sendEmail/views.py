@@ -13,15 +13,15 @@ def sendEmail(request):
     inputReceiver = request.POST['inputReceiver']
     inputTitle = request.POST['inputTitle']
     inputContent = request.POST['inputContent']
-    restaurant = []
+    restaurants = []
     for checked_res_ld in checked_res_list:
-        restaurant.append(Restaurant.objects.get(id=checked_res_ld))
+        restaurants.append(Restaurant.objects.get(id=checked_res_ld))
     content = {'inputContent' : inputContent ,
-               'restaurant' : restaurant}
+               'restaurants' : restaurants}
     msg_html = render_to_string('sendEmail/email_format.html',content)
 
-    msg = EmailMessage(subject= inputTitle, body=msg_html,
-                       from_email='xmdnlxl0227@gmail.com',
+    msg = EmailMessage(subject=inputTitle, body=msg_html,
+                       from_email='django200925@gmail.com',
                        bcc=inputReceiver.split(','))
     msg.content_subtype = 'html'
     msg.send()
